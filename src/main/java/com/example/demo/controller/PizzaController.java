@@ -45,7 +45,7 @@ public class PizzaController {
 		Pizza pizza = optPizza.get();
 		
 		List<OffertaSpeciale> offSpeciali = pizza.getOfferteSpeciali();
-	
+
 		model.addAttribute("pizza", pizza);
 		model.addAttribute("offSpeciali", offSpeciali);
 		

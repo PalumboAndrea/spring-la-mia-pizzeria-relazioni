@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.pojo.OffertaSpeciale;
 import com.example.demo.pojo.Pizza;
@@ -57,7 +59,19 @@ public class OffertaSpecialeController {
 	@PostMapping("/OffertaSpeciale/create")
 	public String storeOffertaSpeciale(
 			Model model,
-			@ModelAttribute OffertaSpeciale offertaSpeciale) {
+			@Valid @ModelAttribute OffertaSpeciale offertaSpeciale,
+			BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			
+			for (ObjectError err : bindingResult.getAllErrors()) 
+				System.err.println("error: " + err.getDefaultMessage());
+			
+			model.addAttribute("offertaSpeciale", offertaSpeciale);
+			model.addAttribute("errors", bindingResult);
+			
+			return "createOffertaSpeciale";
+		}
 		
 		offertaSpecialeServ.save(offertaSpeciale);
 		
@@ -71,8 +85,12 @@ public class OffertaSpecialeController {
 		) {
 		
 		List<Pizza> pizze = pizzaService.findAll();
+		Optional<Pizza> currentPizzaServ = pizzaService.findById(id);
+		Pizza currentPizza = currentPizzaServ.get();
 		Optional<OffertaSpeciale> optOffertaSpeciale = offertaSpecialeServ.findById(id);
 		OffertaSpeciale offertaSpeciale = optOffertaSpeciale.get();
+		
+		model.addAttribute("currentPizza", currentPizza);
 		model.addAttribute("pizze", pizze);
 		model.addAttribute("offertaSpeciale", offertaSpeciale);
 		
@@ -83,8 +101,22 @@ public class OffertaSpecialeController {
 	public String updatePizza(
 			Model model,
 			@PathVariable int id,
-			@ModelAttribute OffertaSpeciale offertaSpeciale
+			@Valid @ModelAttribute OffertaSpeciale offertaSpeciale,
+			BindingResult bindingResult
 		) {
+		
+		if (bindingResult.hasErrors()) {
+			
+			for (ObjectError err : bindingResult.getAllErrors()) 
+				System.err.println("error: " + err.getDefaultMessage());
+			
+			List<Pizza> pizze = pizzaService.findAll();
+			model.addAttribute("pizze", pizze);
+			model.addAttribute("offertaSpeciale", offertaSpeciale);
+			model.addAttribute("errors", bindingResult);
+			
+			return "updateOffertaSpeciale";
+		}
 		
 		offertaSpeciale.setId(id);
 		offertaSpecialeServ.save(offertaSpeciale);
