@@ -1,9 +1,15 @@
-package com.example.demo;
+package com.example.demo.serv;
 
 import java.util.*;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.pojo.Pizza;
+import com.example.demo.repo.PizzaRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class PizzaService {
@@ -29,8 +35,17 @@ public class PizzaService {
 		return pizzaRepository.findByNameContaining(name);
 	}
 	
-	public void deleteBook(Pizza pizza) {
+	public void deletePizza(Pizza pizza) {
 		
 		pizzaRepository.delete(pizza);
+	}
+	
+	@Transactional
+	public Optional<Pizza> findByIdWithOffertaSpeciale(int id) {
+		
+		Optional<Pizza> pizzaOpt = pizzaRepository.findById(id);
+		Hibernate.initialize(pizzaOpt.get().getOfferteSpeciali());
+		
+		return pizzaOpt;
 	}
 }

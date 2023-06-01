@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Pizza;
-import com.example.demo.PizzaService;
+import com.example.demo.pojo.OffertaSpeciale;
+import com.example.demo.pojo.Pizza;
+import com.example.demo.serv.OffertaSpecialeServ;
+import com.example.demo.serv.PizzaService;
 
 import jakarta.validation.Valid;
 
 @Controller
-public class MyController {
+public class PizzaController {
 
 	@Autowired
 	private PizzaService pizzaService;
@@ -42,7 +44,10 @@ public class MyController {
 		Optional<Pizza> optPizza = pizzaService.findById(id);
 		Pizza pizza = optPizza.get();
 		
+		List<OffertaSpeciale> offSpeciali = pizza.getOfferteSpeciali();
+	
 		model.addAttribute("pizza", pizza);
+		model.addAttribute("offSpeciali", offSpeciali);
 		
 		return "show";
 	}
@@ -134,7 +139,7 @@ public class MyController {
 		
 		Optional<Pizza> optPizza = pizzaService.findById(id);
 		Pizza pizza = optPizza.get();
-		pizzaService.deleteBook(pizza);
+		pizzaService.deletePizza(pizza);
 		
 		return "redirect:/home";
 	}

@@ -1,9 +1,12 @@
-package com.example.demo;
+package com.example.demo.pojo;
+
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 
@@ -13,6 +16,9 @@ public class Pizza {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@OneToMany(mappedBy = "pizza")
+	private List<OffertaSpeciale> offerteSpeciali;
 
 	@NotBlank(message = "Il nome non può essere vuoto")
 	private String name;
@@ -31,6 +37,13 @@ public class Pizza {
 		setDescription(description);
 		setImgUrl(imgUrl);
 		setPrice(price);
+	}
+	
+	public List<OffertaSpeciale> getOfferteSpeciali() {
+		return offerteSpeciali;
+	}
+	public void setOfferteSpeciali(List<OffertaSpeciale> offerteSpeciali) {
+		this.offerteSpeciali = offerteSpeciali;
 	}
 	
 	public int getId() {
