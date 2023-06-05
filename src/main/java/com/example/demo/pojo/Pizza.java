@@ -1,11 +1,13 @@
 package com.example.demo.pojo;
 
+import java.util.Arrays;
 import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -19,6 +21,9 @@ public class Pizza {
 	
 	@OneToMany(mappedBy = "pizza")
 	private List<OffertaSpeciale> offerteSpeciali;
+	
+	@ManyToMany
+	private List<Ingrediente> ingredienti;
 
 	@NotBlank(message = "Il nome non può essere vuoto")
 	private String name;
@@ -31,12 +36,13 @@ public class Pizza {
 	private double price;
 	
 	public Pizza() { }
-	public Pizza (String name, String description, String imgUrl, double price) {
+	public Pizza (String name, String description, String imgUrl, double price, Ingrediente... ingredienti) {
 		
 		setName(name);
 		setDescription(description);
 		setImgUrl(imgUrl);
 		setPrice(price);
+		setIngredienti(ingredienti);
 	}
 	
 	public List<OffertaSpeciale> getOfferteSpeciali() {
@@ -75,6 +81,16 @@ public class Pizza {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	public List<Ingrediente> getIngredienti() {
+		return ingredienti;
+	}
+	public void setIngredienti(List<Ingrediente> ingredienti) {
+		
+		this.ingredienti = ingredienti;
+	}
+	public void setIngredienti(Ingrediente[] ingredienti) {
+		setIngredienti(Arrays.asList(ingredienti)); 
 	}
 	
 	@Override

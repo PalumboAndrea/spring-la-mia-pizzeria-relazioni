@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.demo.pojo.OffertaSpeciale;
 import com.example.demo.pojo.Pizza;
+import com.example.demo.pojo.Ingrediente;
+import com.example.demo.serv.IngredienteServ;
 import com.example.demo.serv.OffertaSpecialeServ;
 import com.example.demo.serv.PizzaService;
 
@@ -26,13 +28,26 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 	@Autowired
 	private OffertaSpecialeServ offertaSpecialeServ;
 	
+	@Autowired
+	private IngredienteServ ingredienteServ;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		
-		Pizza pizza1 = new Pizza("Margherita", "Pomodoro, mozzarella", "https://cdn.shopify.com/s/files/1/0586/6795/8427/articles/Margherita-9920.jpg?crop=center&height=915&v=1644590028&width=1200", 6);
-		Pizza pizza2 = new Pizza("Napoli", "Pomodoro, mozzarella, acciughe", "https://cdn.shopify.com/s/files/1/0586/6795/8427/articles/Margherita-9920.jpg?crop=center&height=915&v=1644590028&width=1200", 8);
-		Pizza pizza3 = new Pizza("Marinara", "Pomodoro, origano", "https://cdn.shopify.com/s/files/1/0586/6795/8427/articles/Margherita-9920.jpg?crop=center&height=915&v=1644590028&width=1200", 5);
+		Ingrediente ingrediente1 = new Ingrediente("Peperoncino");
+		Ingrediente ingrediente2 = new Ingrediente("Pomodori");
+		Ingrediente ingrediente3 = new Ingrediente("Acciughe");
+		Ingrediente ingrediente4 = new Ingrediente("Mozzarella");
+		
+		ingredienteServ.save(ingrediente1);
+		ingredienteServ.save(ingrediente2);
+		ingredienteServ.save(ingrediente3);
+		ingredienteServ.save(ingrediente4);
+		
+		Pizza pizza1 = new Pizza("Margherita", "Pomodoro, mozzarella", "https://cdn.shopify.com/s/files/1/0586/6795/8427/articles/Margherita-9920.jpg?crop=center&height=915&v=1644590028&width=1200", 6, new Ingrediente[] {ingrediente1, ingrediente2});
+		Pizza pizza2 = new Pizza("Napoli", "Pomodoro, mozzarella, acciughe", "https://cdn.shopify.com/s/files/1/0586/6795/8427/articles/Margherita-9920.jpg?crop=center&height=915&v=1644590028&width=1200", 8, new Ingrediente[] {ingrediente1, ingrediente2});
+		Pizza pizza3 = new Pizza("Marinara", "Pomodoro, origano", "https://cdn.shopify.com/s/files/1/0586/6795/8427/articles/Margherita-9920.jpg?crop=center&height=915&v=1644590028&width=1200", 5, new Ingrediente[] {ingrediente1, ingrediente2});
 		
 		pizzaService.save(pizza1);
 		pizzaService.save(pizza2);
