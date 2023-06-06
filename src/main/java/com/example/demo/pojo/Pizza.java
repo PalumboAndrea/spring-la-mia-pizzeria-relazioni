@@ -92,6 +92,12 @@ public class Pizza {
 	public void setIngredienti(Ingrediente[] ingredienti) {
 		setIngredienti(Arrays.asList(ingredienti)); 
 	}
+	public void addIngrediente(Ingrediente ingrediente) {
+		getIngredienti().add(ingrediente);
+	}
+	public void removeIngrediente(Ingrediente ingrediente) {
+		getIngredienti().remove(ingrediente);
+	}
 	
 	@Override
 	public String toString() {

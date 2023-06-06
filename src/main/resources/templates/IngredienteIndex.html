@@ -9,26 +9,24 @@
 	
 		<div class="container">
 		
+			<h1>
+				Ecco la lista degli ingredienti utilizzati nelle nostre pizze:
+			</h1>
+		
 			<ul>
 				<li th:each="ingrediente : ${ingredienti}" th:object="${ingrediente}" class="my-1">
 					<a th:href="@{/offertaSpeciale/{id} (id=*{id})}">[[ *{name} ]]</a>
 					<a
-						th:href="@{/OffertaSpeciale/update/{id} (id=*{id})}"
-						class="btn btn-warning"
-						th:text="Modifica"
-					></a>
-					<a
-						th:href="@{/OffertaSpeciale/delete/{id} (id=*{id})}"
+						th:href="@{/ingrediente/delete/{id} (id=*{id})}"
 						class="btn btn-danger"
 						th:text="Elimina"
 					></a>
 				</li>
 			</ul>
+			
+			<a th:href="@{/ingredienti/create}" class="btn btn-primary">Crea un nuovo ingrediente!</a>
 		
 		</div>
-		
-		
-		
 		
 		<a th:replace="fragments :: backHome()"></a>
 		

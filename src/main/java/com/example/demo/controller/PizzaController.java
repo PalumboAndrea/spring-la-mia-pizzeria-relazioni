@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.pojo.OffertaSpeciale;
+import com.example.demo.pojo.Ingrediente;
 import com.example.demo.pojo.Pizza;
 import com.example.demo.serv.OffertaSpecialeServ;
 import com.example.demo.serv.PizzaService;
@@ -45,9 +46,11 @@ public class PizzaController {
 		Pizza pizza = optPizza.get();
 		
 		List<OffertaSpeciale> offSpeciali = pizza.getOfferteSpeciali();
+		List<Ingrediente> ingredienti = pizza.getIngredienti();
 
 		model.addAttribute("pizza", pizza);
 		model.addAttribute("offSpeciali", offSpeciali);
+		model.addAttribute("ingredienti", ingredienti);
 		
 		return "show";
 	}

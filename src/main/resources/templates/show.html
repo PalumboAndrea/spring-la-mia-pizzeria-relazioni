@@ -41,31 +41,52 @@
 		
 		</div>
 		
-		<ul>
-			<li th:each="offSpeciale : ${offSpeciali}" th:object="${offSpeciale}" class="my-1">
-				<a th:href="@{/offertaSpeciale/{id} (id=*{id})}">[[ *{title} ]]</a>
-				<span>--> prezzo della pizza con sconto: [[ ${pizza.price} - ${pizza.price} / 100 * *{discount} ]]euro </span>
-				<a
-					th:href="@{/OffertaSpeciale/update/{id} (id=*{id})}"
-					class="btn btn-warning"
-					th:text="Modifica"
-				></a>
-				<a
-					th:href="@{/OffertaSpeciale/delete/{id} (id=*{id})}"
-					class="btn btn-danger"
-					th:text="Elimina"
-				></a>
-			</li>
-		</ul>
+		<div>
+			<h3>
+				Offerte speciali attive:
+			</h3>
+			<ul>
+				<li th:each="offSpeciale : ${offSpeciali}" th:object="${offSpeciale}" class="my-1">
+					<a th:href="@{/offertaSpeciale/{id} (id=*{id})}">[[ *{title} ]]</a>
+					<span>--> prezzo della pizza con sconto: [[ ${pizza.price} - ${pizza.price} / 100 * *{discount} ]]euro </span>
+					<a
+						th:href="@{/OffertaSpeciale/update/{id} (id=*{id})}"
+						class="btn btn-warning"
+						th:text="Modifica"
+					></a>
+					<a
+						th:href="@{/OffertaSpeciale/delete/{id} (id=*{id})}"
+						class="btn btn-danger"
+						th:text="Elimina"
+					></a>
+				</li>
+			</ul>
+			<a
+			th:href="@{/OffertaSpeciale/create}"
+			class="btn btn-primary"
+			>Aggiungi offerta speciale</a>
+		
+			<h3>
+				Ingredienti:
+			</h3>
+			<ul>
+				<li th:each="ingrediente : ${ingredienti}" th:object="${ingrediente}" class="my-1">
+					<span>[[ *{name} ]]</span>
+				</li>
+			</ul>
+			<a
+			th:href="@{/ingredienti/create}"
+			class="btn btn-primary"
+			>Aggiungi ingrediente</a>
+		</div>
+		
+		
 		
 		<div class="d-flex justify-content-center">
 			<img style="width: 400px;" alt="pizza" th:src="${pizza.imgUrl}">
 		</div>
 		
-		<a
-			th:href="@{/OffertaSpeciale/create}"
-			class="btn btn-primary"
-		>Aggiungi offerta speciale</a>
+		
 		
 		<a th:replace="fragments :: backHome()"></a>
 		
