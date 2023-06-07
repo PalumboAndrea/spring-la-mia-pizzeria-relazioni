@@ -24,8 +24,11 @@ public class AuthConfiguration {
 		return 
 			http.authorizeHttpRequests(a -> a
 			        .requestMatchers("/users/**").hasAnyAuthority("USER", "ADMIN")
-			        .requestMatchers("/pizza/**").hasAuthority("USER")
+			        .requestMatchers("/home/**").hasAnyAuthority("USER", "ADMIN")
 			        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+			        .requestMatchers("/pizze/**").hasAuthority("ADMIN")
+			        .requestMatchers("/offertaSpeciale/**").hasAuthority("ADMIN")
+			        .requestMatchers("/ingredienti/**").hasAuthority("ADMIN")
 			        .requestMatchers("/**").permitAll()
 			).formLogin(f -> f.permitAll()
 			).logout(l -> l.logoutSuccessUrl("/")
